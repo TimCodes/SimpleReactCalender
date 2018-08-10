@@ -1,2 +1,0 @@
-# SimpleReactCalender
-Created with CodeSandbox
