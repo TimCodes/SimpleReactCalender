@@ -53,12 +53,12 @@ class App extends Component {
   componentWillMount() {
     let currentYear = this._calanderSevice.currentYear;
     let currentMonth = this._calanderSevice.currentMonth;
-    let daysInMonth = this._calanderSevice.getDaysInMonth(
+    let daysInMonth = this._calanderSevice.getCalenderArr(
       currentMonth,
       currentYear
     );
-    daysInMonth.map(m => console.log(m));
-    console.log(daysInMonth);
+    //daysInMonth.map(m => console.log(m));
+    console.log("days in month ----", daysInMonth);
     this.setState({ daysInCurrentMonth: daysInMonth });
   }
 
@@ -173,6 +173,19 @@ function CalenderService() {
       date.setDate(date.getDate() + 1);
     }
     return days;
+  };
+  // yesterday = date.setDate(d.getdate() - 1);
+  this.getCalenderArr = function(month, year) {
+    let datesInMonth = this.getDaysInMonth(month, year);
+    console.log("--- first day ----", datesInMonth[0]);
+    if (datesInMonth[0].getDay() > 0) {
+      let firstDay = new Date(datesInMonth[0]);
+      while (firstDay.getDay() > 0) {
+        firstDay.setDate(firstDay.getDate() - 1);
+        datesInMonth.unshift(new Date(firstDay));
+      }
+    }
+    return datesInMonth;
   };
 }
 
